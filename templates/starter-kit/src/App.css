@@ -190,3 +190,7 @@ justify-content: space-evenly;
 font-weight: 600;
 font-size: 1.1em;
 }
+.newsImgs {
+  max-width: 20vw;
+  max-height: 20vh;
+}

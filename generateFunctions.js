@@ -927,6 +927,8 @@ export default function Examples() {
         </div>
             <br />
             <h2>Your API-KEY is: ${response.apiKey ? response.apiKey : 'API-KEY was not provided'}</h2>
+            <br />
+            <h2>Your API-ID is: ${response.appId ? response.appId : 'APP-ID was not provided'}</h2>
         <h2> If you don't have it yet, get your Free <a target='_blank' href='https://developer.edamam.com/'>Edamam API</a> key</h2>
         <br />
         <h1>Edamam API</h1> 
@@ -1567,14 +1569,14 @@ function EdamamFetch() {
     return(
         `
         //Base Fetch Code
-        const [data, setData] = useState({})
+        const [data, setData] = useState([])
 
         useEffect(() => {
         (async () => {
             try{
-                const res = await fetch();
+                const res = await fetch(\`https://api.edamam.com/search?q=chicken&app_id=\${secrets.appId}&app_key=\${secrets.apiKey}&from=0&to=12&calories=591-722\`);
                 const data = await res.json()
-                await setData(data)
+                await setData(data.hits)
             } catch (err) {
                 console.error(err)
             }
@@ -1584,13 +1586,38 @@ function EdamamFetch() {
     )
 }
 
+function EdamamCode() {
+    return(
+        `
+        <br />
+        <br />
+        <h1>Example Display Data:</h1>
+        <div className='exampleFetchContainerDiv'>
+                    { 
+                        data.map((recipe) => {
+                            return (
+                                <>
+                                    <div className='exampleFetchDiv'>
+                                    <h3>{recipe.recipe.label}</h3>
+                                    <a href={recipe.recipe.url} target='_blank'>
+                                    <img class='newsImgs' src={recipe.recipe.image}/></a>
+                                    </div>
+                                </>
+                            )
+                        }) 
+                    }
+        </div>
+        `
+    )
+}
+
 function MovieExample(response){
     return(
         `
-        import React, { useState, useEffect } from "react";
-import NavBar from "./NavBar";
+    import React, { useState, useEffect } from "react";
+    import NavBar from "./NavBar";
 
-const idOrTitle = {
+    const idOrTitle = {
     "Title": "Superman",
     "Year": "1978",
     "Rated": "PG",
@@ -2540,20 +2567,46 @@ export default function Examples() {
 function NewsFetch(){
     return(
         `
+        
         //Example Fetch
-        const [data, setData] = useState({})
+        const [data, setData] = useState([])
 
         useEffect(() => {
         (async () => {
             try{
                 const res = await fetch(\`https://newsapi.org/v2/everything?q=wandavision&apiKey=\${secrets.apiKey}\`);
                 const data = await res.json()
-                await setData(data)
+                await setData(data.articles)
             } catch (err) {
                 console.error(err)
             }
         })()
     }, [])
+        `
+    )
+}
+
+function NewsCode() {
+    return(
+        `
+        <br />
+        <br />
+            <h1>Example Display Data:</h1>
+        <div className='exampleFetchContainerDiv'>
+                    { 
+                        data.map((article) => {
+                            return (
+                                <><div className='exampleFetchDiv'>
+                                    <h3>{article.title}</h3>
+                                    <h4>{article.source.name}</h4>
+                                    <a href={article.url} target='_blank'>
+                                    <img class='newsImgs' src={article.urlToImage}/></a>
+                                    </div>
+                                </>
+                            )
+                        }) 
+                    }
+            </div>
         `
     )
 }
@@ -3874,16 +3927,17 @@ function decideFetch (projectChoice){
 function decideCode(projectChoice){
     switch (projectChoice) {
         case 'LastFm Music':
-           return LastFmCode();
+            return LastFmCode();
+        case 'Movie':
+            return MovieCode();
+        case 'News':
+            return NewsCode();
+        case 'Edamam':
+            return EdamamCode();
     }
 }
 
-function decideCode(projectChoice){
-    switch (projectChoice) {
-        case 'Movie':
-            return MovieCode();
-    }
-}
+
 
 function ApiGoPage(response) {
     return(
@@ -3926,7 +3980,8 @@ function ApiGoPage(response) {
 function ConfigJS(response){
 return`
 const secrets = {
-    apiKey: '${response.apiKey}'
+    apiKey: '${response.apiKey}',
+    appId: '${response.appId}'
 }
 
 export default secrets;

@@ -59,10 +59,23 @@ function promptUser(){
                 if (/^([A-Za-z\-\_\d])+$/.test(input)) {
                     return true;
                 } else {
-                    return 'Project name must contain letters, numbers, underscores and hashes only.';
+                    return 'API-KEY must contain letters, numbers, underscores and hashes only.';
                 }
             },
             when: (response) => response.apiChoice === true
+        },
+        {
+            name: 'appId',
+            input: 'input',
+            message: 'Enter your Edamam app-id, if you have one already',
+            validate: (input) => {
+                if (/^([A-Za-z\-\_\d])+$/.test(input)) {
+                    return true;
+                } else {
+                    return 'APP-ID must contain letters, numbers, underscores and hashes only.';
+                }
+            },
+            when: (response) => response.apiProjectChoice === 'Edamam'
         },
         {
             name: 'projectName',
