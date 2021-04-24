@@ -12,17 +12,41 @@ const response = require('./index')
 function NasaFetch(){
     return`
     //Example Fetch
-        const [data, setData] = useState({});
-        useEffect(() => {
-        (async () => {
-            const res = await fetch(
-            \`https://api.nasa.gov/mars-photos/api/v1/rovers/Spirit/photos?sol=34&page=2&api_key=\${secrets.apiKey}\`
-            );
-            const data = await res.json();
-            setData(data);
-        })()
-        }, []);
+    const [data, setData] = useState([])
+    
+    useEffect(() => {
+    (async () => {
+        try{
+            const res = await fetch(\`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?api_key=\${secrets.apiKey}\`);
+            const data = await res.json()
+            await setData(data.latest_photos)
+        } catch (err) {
+            console.error(err)
+        }
+    })()
+    }, [])
     `
+}
+
+function NasaCode(){
+    return(`
+    <div className='exampleFetchContainerDiv'>
+    { 
+        data.map((photo) => {
+            return (
+                <><div className='exampleFetchDiv'>
+                    <h4>Camera:&nbsp; &nbsp;{photo.camera.name}</h4>
+                    <h4>  {photo.earth_date}</h4>
+                    <a href={photo.img_src} target='_blank'>
+                    <img className='newsImgs' src={photo.img_src}/>
+                    </a>
+                    </div>
+                </>
+            )
+        }) 
+    }
+    </div>
+    `)
 }
 
 function NasaExample(response){
@@ -3952,7 +3976,7 @@ function LastFmCode(){
         `
     )
 }
-
+//  function to determine which fetch call to write
 function decideFetch (projectChoice){
     switch (projectChoice) {
         case 'Nasa':
@@ -3971,7 +3995,7 @@ function decideFetch (projectChoice){
             return LastFmFetch()
     }
 }
-
+//  function to determine which example to write
 function decideCode(projectChoice){
     switch (projectChoice) {
         case 'LastFm Music':
@@ -3986,6 +4010,8 @@ function decideCode(projectChoice){
             return YoutubeCode();
         case 'RAWG Video Games':
             return RawgCode();
+        case 'Nasa':
+            return NasaCode();
     }
 }
 
