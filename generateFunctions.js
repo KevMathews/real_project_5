@@ -2201,6 +2201,9 @@ function MovieFetch(){
 function MovieCode(){
     return(
         `
+        <br />
+        <br />
+            <h1>Example Display Data:</h1>
         <div className='exampleFetchContainerDiv'>
                     { 
                         data.map((movie) => {
@@ -2214,7 +2217,7 @@ function MovieCode(){
                             )
                         }) 
                     }
-            </div>
+        </div>
         `
     )
 }
@@ -3328,19 +3331,42 @@ function YoutubeFetch() {
     return(
         `
         //Example Fetch
-        const [data, setData] = useState({})
+        const [data, setData] = useState([])
 
         useEffect(() => {
         (async () => {
             try{
                 const res = await fetch(\`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=javascriptI&type=video&videoCaption=closedCaption&key=\${secrets.apiKey}\`);
                 const data = await res.json()
-                await setData(data)
+                await setData(data.items)
             } catch (err) {
                 console.error(err)
             }
         })()
     }, [])
+        `
+    )
+}
+function YoutubeCode() {
+    return(
+        `
+        <br />
+        <br />
+        <h1>Example Display Data:</h1>
+        <div className='exampleFetchContainerDiv'>
+        { 
+            data.map((video) => {
+                return (
+                    <><div className='exampleFetchDiv'>
+                        <h4> {video.snippet.title}</h4>
+                        <a href={\`https://www.youtube.com/watch?v=\${video.id.videoId}\`} target='_blank'>
+                        <img src={video.snippet.thumbnails.medium.url}/></a>
+                        </div>
+                    </>
+                    )
+                }) 
+        }
+        </div>
         `
     )
 }
@@ -3625,14 +3651,14 @@ function RawgFetch(){
     return(
         `
         //Example Fetch
-        const [data, setData] = useState({})
+        const [data, setData] = useState([])
 
         useEffect(() => {
         (async () => {
             try{
                 const res = await fetch(\`https://api.rawg.io/api/games?key=\${secrets.apiKey}&search=mario\`);
                 const data = await res.json()
-                await setData(data.results[0])
+                await setData(data.results)
             } catch (err) {
                 console.error(err)
             }
@@ -3640,6 +3666,28 @@ function RawgFetch(){
     }, [])
         `
     )
+}
+
+function RawgCode(){
+    return(`
+    <br />
+    <br />
+    <h1>Example Display Data:</h1>
+    <div className='exampleFetchContainerDiv'>
+            { 
+                data.map((game) => {
+                    return (
+                        <><div className='exampleFetchDiv'>
+                            <h2>  {game.name}</h2>
+
+                            <img className='newsImgs' src={game.background_image}/>
+                            </div>
+                        </>
+                    )
+                }) 
+            }
+    </div>
+    `)
 }
 
 function LastFmExample(response) {
@@ -3934,6 +3982,10 @@ function decideCode(projectChoice){
             return NewsCode();
         case 'Edamam':
             return EdamamCode();
+        case 'Youtube':
+            return YoutubeCode();
+        case 'RAWG Video Games':
+            return RawgCode();
     }
 }
 

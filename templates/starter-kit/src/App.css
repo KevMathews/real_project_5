@@ -72,10 +72,11 @@ flex-wrap: wrap;
 text-align: center;
 }
 .exampleFetchDiv {
-padding: 40px 40px;
-width: 20vw;
-text-align: center;
-}
+  padding: 40px 40px;
+  width: auto;
+  max-width: 20vw;
+  text-align: center;
+  }
 .missionManifestDiv, .PhotoAttributesDiv, .queryExamplesDiv {
 border: 3px solid black;
 width: 55vw;
