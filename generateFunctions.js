@@ -25,6 +25,11 @@ function NasaFetch(){
         }
     })()
     }, [])
+    if (!data) return <div className='apiGoLogoDivMain'> 
+    <img src='https://api-go.app/img/api-go.gif'></img>
+    If had you supplied an API-Key during setup, the example fetch would have appeared here
+    </div>
+;
     `
 }
 
@@ -1606,6 +1611,11 @@ function EdamamFetch() {
             }
         })()
     }, [])
+    if (!data) return <div className='apiGoLogoDivMain'> 
+    <img src='https://api-go.app/img/api-go.gif'></img>
+    If had you supplied an API-Key during setup, the example fetch would have appeared here
+    </div>
+;
         `
     )
 }
@@ -2217,7 +2227,11 @@ function MovieFetch(){
                 }
             })()
         }, [])
-        if (!data) return <div />;
+        if (!data) return <div className='apiGoLogoDivMain'> 
+        <img src='https://api-go.app/img/api-go.gif'></img>
+        If had you supplied an API-Key during setup, the example fetch would have appeared here
+        </div>
+    ;
         `
     )
 }
@@ -2609,6 +2623,11 @@ function NewsFetch(){
             }
         })()
     }, [])
+    if (!data) return <div className='apiGoLogoDivMain'> 
+    <img src='https://api-go.app/img/api-go.gif'></img>
+    If had you supplied an API-Key during setup, the example fetch would have appeared here
+    </div>
+    ;
         `
     )
 }
@@ -3368,6 +3387,11 @@ function YoutubeFetch() {
             }
         })()
     }, [])
+    if (!data) return <div className='apiGoLogoDivMain'> 
+    <img src='https://api-go.app/img/api-go.gif'></img>
+    If had you supplied an API-Key during setup, the example fetch would have appeared here
+    </div>
+;
         `
     )
 }
@@ -3688,6 +3712,11 @@ function RawgFetch(){
             }
         })()
     }, [])
+    if (!data) return <div className='apiGoLogoDivMain'> 
+    <img src='https://api-go.app/img/api-go.gif'></img>
+    If had you supplied an API-Key during setup, the example fetch would have appeared here
+    </div>
+;
         `
     )
 }
@@ -3949,6 +3978,11 @@ function LastFmFetch() {
             }
         })()
     }, [])
+    if (!data) return <div className='apiGoLogoDivMain'> 
+    <img src='https://api-go.app/img/api-go.gif'></img>
+    If had you supplied an API-Key during setup, the example fetch would have appeared here
+    </div>
+;
         `
     )
 }
